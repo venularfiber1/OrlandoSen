@@ -1,0 +1,67 @@
+<header class="header">
+
+    <div class="text-box">
+        <h1 class="heading-primary">
+          <span class="heading-primary-main">Orlando Sentinel</span>
+          
+        </h1>
+        <a id="scrape" class="btn btn-white btn-animated my-1 mx-1" href="#">Scrape the Orlando Sentinel</a>
+        <a class="btn btn-white btn-animated my-1 mx-1" href="/saved">View Saved Articles</a>
+    </div>
+</header>
+<div class="container">
+    <div class="card-deck mt-3">
+        {{#each results}} 
+        {{#unless saved}}
+        <div class='row my-2'>
+            <div class='card'>
+                <div class='card-block'>
+                    <div class='card-header row'>
+                        <div class="col-md-8">
+                            <a class="headlineLink" href="http://www.orlandosentinel.com{{{link}}}.html">{{headline}}</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {{#unless comments}}
+                            <button type="button" class="btn btn-success mx-1 mb-1 commentBtn" data-toggle="modal" data-target="#showComment" value="{{{_id}}}">Comment</button>
+                            {{/unless}} {{#if comments}}
+                            <button type="button" class="btn btn-success mx-1 mb-1 commentBtn" data-toggle="modal" data-target="#showComment" value="{{{_id}}}">Edit Comment</button>
+                            {{/if}} {{#unless saved}}
+                            <button class="btn btn-warning mx-1 mb-1 save" data-saved="{{{saved}}}" value="{{{_id}}}">Save Article</button>
+                            {{/unless}} {{#if saved}}
+                            <button class="btn btn-warning mx-1 mb-1 save" data-saved="{{{saved}}}" value="{{{_id}}}">Remove Article</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{#if img}}
+                        <img class="storyImg col-md-3 p-2" src="{{{img}}}"> {{/if}} {{#unless img}}
+                        <img class="storyImg col-md-3 p-2" src="images/unavailable.jpg"> {{/unless}} {{#if summary}}
+                        <p class='card-text p-3 col-md-9'>{{summary}}</p>
+                        {{/if}} {{#unless summary}}
+                        <p class='card-text p-3 col-md-9'>No summary</p>
+                        {{/unless}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/unless}} 
+        {{/each}}
+    </div>
+</div>
+<div id="addnote">
+    <div id="note-displayer">
+        <h3 id="headline" class="p-4"></h3>
+        <div id="note">
+            <label for="note-title">Title</label>
+            <br>
+            <input type="text" placeholder="Title" name="title" id="note-title">
+            <br>
+            <label for="note-body">Comment</label>
+            <br>
+            <textarea rows="7" placeholder="Note" id="note-body"></textarea>
+            <br>
+            <button type="submit" id="add-note" class="btn btn-success">Save</button>
+            <button type="button" id="close-note" class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+</div>
